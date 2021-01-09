@@ -1,0 +1,66 @@
+/* Demo 1 */
+#gridslide {
+	font-size: 40px;
+	text-align: center;
+	width: 400px;
+	height: 200px;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+#gridslide div {
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	float: left;
+}
+
+#gridslide .viewport {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	position: relative;
+	float: left;
+}
+
+#gridslide .viewport div {
+	position: absolute;
+}
+
+#gridslide .viewport div {
+	width: 96px;
+	height: 96px;
+	border: 2px solid #333;
+}
+
+/* Demo 2 */
+
+#gridslide2 {
+	width: 750px;
+	height: 376px;
+	overflow: hidden;
+}
+
+#gridslide2 a {
+	display:block;
+	float: left;
+	width: 240px;
+	height: 188px;
+}
+
+#gridslide2 img {
+	border:none;
+	display: block;
+}
+
+#gridslide2 .viewport {
+	width: 245px;
+	height: 188px;
+	overflow: hidden;
+	position: relative;
+	float: left;
+}
+
+#gridslide2 .viewport a {
+	position: absolute;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<link rel="stylesheet" href="themes/theme.min.css" />
+		<link rel="stylesheet" href="jquery.mobile.structure-1.3.2.min.css" />
+		<script src="jquery-1.9.1.min.js"></script>
+		<script src="jquery.mobile-1.3.2.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#submitreg').click(function(){
+					if($('#fname').val() == ""){
+						alert('Please enter your first name.');
+					} else if($('#lname').val() == "") {
+						alert('Please enter your last name.');
+					} else if($('#email').val() == "") {
+						alert('Please enter your email.');
+					} else if($('#contact_number').val() == "") {
+						alert('Please enter your contact number.');
+					} else if($('#username').val() == "") {
+						alert('Please enter your username.');
+					} else if($('#password').val() == "") {
+						alert('Please enter your password.');
+					} else if($('#password2').val() == "") {
+						alert('Please confirm your password.');
+					} else if($('#password').val() != $('#password2').val()) {
+						alert('Please confirm your password.');
+					} else {
+						$.post('http://localhost/thesis4/api/save_reservation.php',{ sql:"insert into users(username, email, last_name, first_name, contact_number, password, role) values('"+ $('#username').val() +"', '"+ $('#email').val() +"', '"+ $('#lname').val() +"', '"+ $('#fname').val() +"', '"+ $('#contact_number').val() +"', '"+ $('#password').val() +"', 'User')" },function(i){
+							location.reload();
+						});
+					}
+				});
+			});
+			
+			$(document).ready(function(){
+				
+				if(localStorage.getItem('user') == null || localStorage.getItem('user') == "" || localStorage.getItem('user') == "null"){
+					
+					$('#menu').prepend('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-a"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="login.html" class="ui-link-inherit"><img src="img/icon4.jpg" class="ui-li-thumb"><font size="4">SIGN-IN</font></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+					$('#menu').prepend('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-a"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="register.html" class="ui-link-inherit"><img src="img/icon.jpg" class="ui-li-thumb"><font size="4">SIGN-UP</font></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+					$('#menu').prepend('<center><img src="img/icon1,0.png"></center>');
+					
+					
+				} else {
+					$.post('http://localhost/thesis4/api/sql.php', {
+						fld: "last_name, first_name",
+						tbl: "users where id like '"+ localStorage.getItem('user') +"'"
+					}, function(i){
+						eval('i='+i);
+						$('#menu').prepend('<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-a"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a href="#" class="ui-link-inherit"><img src="img/icon4.jpg" class="ui-li-thumb"><h1 class="ui-li-heading">'+ i.data[0].first_name + ' ' + i.data[0].last_name + '</h1></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+						$('#menu').append('<li id="logout" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a" class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb ui-btn-up-a"><div class="ui-btn-inner ui-li"><div class="ui-btn-text"><a class="ui-link-inherit"><img src="img/icon4.jpg" class="ui-li-thumb"><h1 class="ui-li-heading">Logout</h1></h1></a></div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div></li>');
+						$('#menu').prepend('<center><img src="img/icon1,0.png"></center>');
+						
+						$('#logout').on('click', function(){
+							localStorage.setItem('user', null);
+							window.location = 'index.html';
+						});	
+					});
+				}
+				
+			});
+		</script>
+		<style type="text/css">
+		
+			
+
+			.ui-page, .ui-content, .ui-btn {
+				background: transparent;
+			}
+			
+		</style>
+	
+	</head>
+	<body>
+		<div data-role="page" >
+		
+			<div data-role="header" data-position="inline">
+			
+		
+				<h1>SEUNGLEE</h1>
+				
+			
+			<div data-role="navbar">
+				
+      
+    </div>
+			</div>
+			<div data-role="content" data-theme="a">
+		
+			
+				<center><img src="img/logo.png"></img></center>
+				<center><h1>Registration Form</h1></center>
+				
+				<form><font size="5">
+				<label>Firstname:</label>
+				<input type="text" id="fname" style="font-size:25px"/>
+				
+				<label>Lastname:</label>
+				<input type="text" id="lname" style="font-size:25px"/>
+				
+				<label>Email:</label>
+				<input type="email" id="email" style="font-size:25px"/>
+				
+				<label>Phone:</label>
+				<input type="text" id="contact_number"  style="font-size:25px"/>
+				
+				<label>Username:</label>
+				<input type="text" id="username" style="font-size:25px"/>
+				
+				<label>Password:</label>
+				<input type="password" id="password" style="font-size:25px"/>
+				
+				<label>Confirm Password:</label>
+				<input type="password" id="password2" style="font-size:25px"/>
+				</font>
+				
+				
+				<input type="button" id="submitreg" value="submit"/>
+	<br/>
+			<center><h2><a href="index.html">SIGN IN</a></h2></center>
+
+		
+			</div>
+			<div data-role="footer" data-theme="a" data-position="fixed"> 
+				<h4></h4> 
+			</div> 
+			
+			
+		</div>
+		
+	</body>
+</html>
